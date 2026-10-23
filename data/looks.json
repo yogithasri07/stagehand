@@ -1,0 +1,59 @@
+{
+    "looks": {
+        "neon": {
+            "speed": 1.5,
+            "scale": 1.2,
+            "hue": 0.75,
+            "glow": 0.9
+        },
+        "warm": {
+            "speed": 0.8,
+            "scale": 1.0,
+            "hue": 0.08,
+            "glow": 0.6
+        },
+        "cold": {
+            "speed": 1.0,
+            "scale": 1.1,
+            "hue": 0.55,
+            "glow": 0.7
+        },
+        "mono": {
+            "speed": 0.7,
+            "scale": 0.9,
+            "hue": 0.0,
+            "glow": 0.3
+        },
+        "dream": {
+            "speed": 0.5,
+            "scale": 1.4,
+            "hue": 0.85,
+            "glow": 1.0
+        }
+    },
+    "current_look": "mono",
+    "intensity": 0.8,
+    "palette": "neon",
+    "history": [
+        "neon",
+        "warm",
+        "warm",
+        "warm",
+        "neon",
+        "neon",
+        "cold",
+        "neon",
+        "mono",
+        "dream",
+        "neon",
+        "warm",
+        "cold",
+        "warm",
+        "neon",
+        "warm",
+        "cold",
+        "mono",
+        "dream",
+        "neon"
+    ]
+}
