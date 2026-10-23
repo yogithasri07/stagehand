@@ -1,77 +1,117 @@
 # StageHand
 
-**Voice- and text-controlled live visual performance for TouchDesigner using MCP.**
+**Voice- and text-controlled live visual performance for TouchDesigner using the Model Context Protocol (MCP).**
 
-StageHand is a local project that connects user commands to a TouchDesigner visual setup through a Model Context Protocol (MCP) server. It provides a way to control supported visual parameters and trigger performance moments using typed commands or speech.
+StageHand is a local project that connects user commands to a TouchDesigner visual setup through an MCP server. It lets users change supported visual looks, adjust intensity and glow settings, and trigger performance moments using typed commands or speech.
+
+## Problem
+
+Live visual performance often requires manually adjusting parameters while managing the performance itself. This can interrupt the creative workflow and make quick changes harder during a live session.
+
+## Solution
+
+StageHand provides a command-based interface for controlling supported TouchDesigner visuals. Users can type commands or use speech input to interact with the MCP server and control the connected visual setup.
 
 ## Features
 
 - Type commands through the terminal.
 - Use speech input when internet-based speech recognition is available.
-- Select supported visual looks: `neon`, `warm`, `cold`, `mono`, and `dream`.
+- Select saved looks: `neon`, `warm`, `cold`, `mono`, and `dream`.
 - Adjust visual intensity.
 - Adjust glow settings.
-- Trigger supported performance moments: `drop`, `calm`, and `flash`.
+- Trigger performance moments: `drop`, `calm`, and `flash`.
 - Check the current StageHand status.
 - List available looks and recall the previous look.
 
 ## Architecture
 
-User command (text or speech)`r`n    |`r`n    v`r`nVoice client (voice_client.py)`r`n    |`r`n    v`r`nMCP server (stagehand_server.py)`r`n    |`r`n    v`r`nTouchDesigner web server and visual project
+```text
+User
+ |
+ | Typed or spoken command
+ v
+Voice Client (voice_client.py)
+ |
+ v
+MCP Server (stagehand_server.py)
+ |
+ v
+TouchDesigner Web Server
+ |
+ v
+Live Visual Output
+```
 
 ## Requirements
 
 - Windows
 - Python
 - TouchDesigner
-- The Python dependencies required by this project
+- Required Python dependencies
 - A TouchDesigner project configured for StageHand
 
-Speech recognition uses an online service, so speech input requires an internet connection. Typed commands can be used without speech recognition.
+Speech recognition uses an online service and requires an internet connection. Typed commands can be used without online speech recognition.
 
 ## Setup
 
-1. Clone or download this repository.
-2. Open PowerShell in the project directory.
-3. Create a virtual environment:
+### 1. Get the project
 
-   ```powershell
-   python -m venv .venv
-   ```
+Clone the repository or download the source code from GitHub.
 
-4. Activate it:
+```powershell
+git clone https://github.com/yogithasri07/stagehand.git
+cd stagehand
+```
 
-   ```powershell
-   .\.venv\Scripts\Activate.ps1
-   ```
+### 2. Create and activate a virtual environment
 
-5. Install the project's required Python packages. Check the project's dependency list or setup documentation for the exact packages.
-6. Open the required TouchDesigner project and start its configured web server.
-7. In one PowerShell window, start the MCP server:
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 
-   ```powershell
-   python stagehand_server.py
-   ```
+### 3. Install dependencies
 
-8. In a second PowerShell window, activate the environment and start the client:
+Install the Python packages required by the project. Use the dependency list or setup instructions included in the repository, if available.
 
-   ```powershell
-   python voice_client.py
-   ```
+### 4. Start TouchDesigner
 
-9. Follow the menu to type a command, use speech, view help, or quit.
+Open the StageHand TouchDesigner project and start its configured web server. Confirm that the TouchDesigner web server is reachable at:
+
+`http://127.0.0.1:9980`
+
+The project must be configured to accept the controls sent by StageHand.
+
+### 5. Start the MCP server
+
+Open a PowerShell window in the project directory, activate the virtual environment, and run:
+
+```powershell
+python stagehand_server.py
+```
+
+### 6. Start the client
+
+Open a second PowerShell window in the project directory, activate the virtual environment, and run:
+
+```powershell
+python voice_client.py
+```
+
+Follow the terminal menu to type a command, use speech input, view help, or quit.
 
 ## Project Files
 
-- `stagehand_server.py` — MCP server and supported control tools
-- `voice_client.py` — terminal client for text and speech commands
-- `state_manager.py` — state management
-- `test_state.py` — state-related tests
-- `data/looks.json` — saved look configuration
+- `stagehand_server.py` â€” MCP server and supported control tools.
+- `voice_client.py` â€” terminal client for text and speech commands.
+- `state_manager.py` â€” state management.
+- `test_state.py` â€” state-related tests.
+- `data/looks.json` â€” saved look configuration.
+- `touchdesigner/` â€” TouchDesigner project files, assets, and setup instructions.
 
 ## Testing
 
-Run the state tests with:
+Run the state tests from the project directory:
 
 ```powershell
 python test_state.py
@@ -82,6 +122,11 @@ python test_state.py
 - StageHand depends on a correctly configured TouchDesigner project and its local web server.
 - Speech recognition requires internet access.
 - Available commands and controls depend on the implementation and TouchDesigner setup.
+- The current client uses a terminal interface.
+
+## Demo
+
+Add a link to your project demonstration video here when it is ready.
 
 ## License
 
