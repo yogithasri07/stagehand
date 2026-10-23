@@ -1,133 +1,136 @@
 # StageHand
 
-**Voice- and text-controlled live visual performance for TouchDesigner using the Model Context Protocol (MCP).**
+**An Alexa-first voice interaction system for controlling live TouchDesigner visuals through the Model Context Protocol (MCP).**
 
-StageHand is a local project that connects user commands to a TouchDesigner visual setup through an MCP server. It lets users change supported visual looks, adjust intensity and glow settings, and trigger performance moments using typed commands or speech.
+## Overview
+
+StageHand aims to make live visual performance more intuitive by allowing performers to control TouchDesigner visuals through voice interactions. Alexa/Alexa+ is the intended primary interaction layer, with StageHand connecting supported control actions to the visual environment.
 
 ## Problem
 
-Live visual performance often requires manually adjusting parameters while managing the performance itself. This can interrupt the creative workflow and make quick changes harder during a live session.
+Live visual performances often require manual adjustment of visual parameters during a performance. Switching between controls can interrupt the creative flow and make spontaneous interaction difficult.
 
 ## Solution
 
-StageHand provides a command-based interface for controlling supported TouchDesigner visuals. Users can type commands or use speech input to interact with the MCP server and control the connected visual setup.
+StageHand is designed to connect voice-driven interaction with live visual control. The intended architecture uses Alexa/Alexa+ for interaction, a StageHand MCP server for exposing supported actions, and TouchDesigner for rendering the visuals.
 
-## Features
-
-- Type commands through the terminal.
-- Use speech input when internet-based speech recognition is available.
-- Select saved looks: `neon`, `warm`, `cold`, `mono`, and `dream`.
-- Adjust visual intensity.
-- Adjust glow settings.
-- Trigger performance moments: `drop`, `calm`, and `flash`.
-- Check the current StageHand status.
-- List available looks and recall the previous look.
+A Python development client currently provides typed and microphone-based command testing while the Alexa integration is developed and verified.
 
 ## Architecture
 
 ```text
-User
- |
- | Typed or spoken command
- v
-Voice Client (voice_client.py)
- |
- v
-MCP Server (stagehand_server.py)
- |
- v
+Alexa / Alexa+
+      |
+      v
+StageHand Integration Layer
+      |
+      v
+StageHand MCP Server
+      |
+      v
 TouchDesigner Web Server
- |
- v
+      |
+      v
 Live Visual Output
 ```
 
-## Requirements
+The diagram represents the intended architecture. The Alexa integration layer must be implemented and verified before this can be considered a complete working flow.
 
-- Windows
+## Current Features
+
+- Saved visual looks: `neon`, `warm`, `cold`, `mono`, and `dream`
+- Intensity control
+- Glow control, where supported by the connected TouchDesigner implementation
+- Performance moments: `drop`, `calm`, and `flash`
+- Previous-look recall
+- MCP tools for supported control actions
+- Typed and microphone-based development testing
+
+## Technology Stack
+
 - Python
+- Model Context Protocol (MCP)
 - TouchDesigner
-- Required Python dependencies
-- A TouchDesigner project configured for StageHand
-
-Speech recognition uses an online service and requires an internet connection. Typed commands can be used without online speech recognition.
+- SpeechRecognition for the development voice client
+- Alexa/Alexa+ as the intended primary interaction layer
 
 ## Setup
 
-### 1. Get the project
+### Requirements
 
-Clone the repository or download the source code from GitHub.
+- Python installed on your system
+- TouchDesigner installed
+- The StageHand repository
+- Internet access for Google's online speech-recognition service when using microphone mode
 
-```powershell
-git clone https://github.com/yogithasri07/stagehand.git
-cd stagehand
-```
+### Installation
 
-### 2. Create and activate a virtual environment
+Create a virtual environment:
 
 ```powershell
 python -m venv .venv
+```
+
+Activate it in PowerShell:
+
+```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Install dependencies
+Install the dependencies:
 
-Install the Python packages required by the project. Use the dependency list or setup instructions included in the repository, if available.
+```powershell
+python -m pip install -r requirements.txt
+```
 
-### 4. Start TouchDesigner
+### Running StageHand
 
-Open the StageHand TouchDesigner project and start its configured web server. Confirm that the TouchDesigner web server is reachable at:
-
-`http://127.0.0.1:9980`
-
-The project must be configured to accept the controls sent by StageHand.
-
-### 5. Start the MCP server
-
-Open a PowerShell window in the project directory, activate the virtual environment, and run:
+1. Open TouchDesigner and configure its web server to accept StageHand requests.
+2. In the first terminal, activate the virtual environment and start the MCP server:
 
 ```powershell
 python stagehand_server.py
 ```
 
-### 6. Start the client
-
-Open a second PowerShell window in the project directory, activate the virtual environment, and run:
+3. In a second terminal, navigate to the project folder, activate the same virtual environment, and start the development client:
 
 ```powershell
 python voice_client.py
 ```
 
-Follow the terminal menu to type a command, use speech input, view help, or quit.
-
-## Project Files
-
-- `stagehand_server.py` — MCP server and supported control tools.
-- `voice_client.py` — terminal client for text and speech commands.
-- `state_manager.py` — state management.
-- `test_state.py` — state-related tests.
-- `data/looks.json` — saved look configuration.
-- `touchdesigner/` — TouchDesigner project files, assets, and setup instructions.
+4. Use typed commands to test supported controls. Microphone mode requires internet access for Google's online speech recognition.
 
 ## Testing
 
-Run the state tests from the project directory:
+Run the state manager test:
 
 ```powershell
 python test_state.py
 ```
 
+Check installed dependency consistency:
+
+```powershell
+python -m pip check
+```
+
+## Integration Status
+
+The current Python development client uses Google's online speech-recognition service for microphone input. This is not an Alexa integration.
+
+Alexa/Alexa+ is the intended primary interaction layer. Its actual connection to StageHand must be implemented and tested before it can be described as a working feature.
+
 ## Limitations
 
-- StageHand depends on a correctly configured TouchDesigner project and its local web server.
-- Speech recognition requires internet access.
-- Available commands and controls depend on the implementation and TouchDesigner setup.
-- The current client uses a terminal interface.
+- Alexa/Alexa+ integration is not confirmed as implemented.
+- Microphone recognition in the development client requires an internet connection.
+- Visual controls depend on the running TouchDesigner project and its configured endpoints.
+- Available actions are limited to the supported StageHand tools.
 
 ## Demo
 
-Add a link to your project demonstration video here when it is ready.
+Add a demonstration video or screenshots here once the complete workflow is recorded and verified.
 
 ## License
 
-See [LICENSE](LICENSE).
+See the `LICENSE` file for licensing terms.
